@@ -24,9 +24,9 @@ jobs:
             . venv/bin/activate
             python -m pytest -v
       - run:
-          name: Build success
           when: on_success
           command: |
-            if [ "$CIRCLE_NODE_INDEX" == 0 ]; then
-              sh .circleci/deploy_dockerhub.sh
-            fi
+            echo $DOCKER_USER
+            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+            docker build -t mariusz-cichy/cicd-buzz:$CIRCLE_BRANCH .
+            docker mariusz-cichy/cicd-buzz:$CIRCLE_BRANCH
