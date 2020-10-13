@@ -1,5 +1,11 @@
 # Python CircleCI 2.0 configuration file
-version: 2
+version: 2.1
+
+workflows:
+  test-env-vars:
+    jobs:
+      - build:
+          context: AUTH
 jobs:
   build:
     docker:
