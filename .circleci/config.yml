@@ -16,6 +16,11 @@ jobs:
     steps:
       # Step 1: obtain repo from GitHub
       - checkout
+
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
+
       # Step 2: create virtual env and install dependencies
       - run:
           name: install dependencies
