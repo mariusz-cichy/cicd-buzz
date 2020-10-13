@@ -28,5 +28,5 @@ jobs:
           when: on_success
           command: |
             if [ "$CIRCLE_NODE_INDEX" == 0 ]; then
-              sh ./circle/deploy_dockerhub.sh
+              sh .circle/deploy_dockerhub.sh
             fi
