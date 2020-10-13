@@ -1,26 +1,20 @@
-from __future__ import print_function
-import random
+import unittest
 
-buzz = ('continuous testing', 'continuous integration',
-    'continuous deployment', 'continuous improvement', 'devops')
-adjectives = ('complete', 'modern', 'self-service', 'integrated', 'end-to-end')
-adverbs = ('remarkably', 'enormously', 'substantially', 'significantly',
-    'seriously')
-verbs = ('accelerates', 'improves', 'enhances', 'revamps', 'boosts')
+from buzz import generator
 
-def sample(l, n = 1):
-    result = random.sample(l, n)
-    if n == 1:
-        return result[0]
-    return result
+def test_sample_single_word():
+    l = ('foo', 'bar', 'foobar')
+    word = generator.sample(l)
+    assert word in l
 
-def generate_buzz():
-    buzz_terms = sample(buzz, 2)
-    phrase = ' '.join([sample(adjectives), buzz_terms[0], sample(adverbs),
-        sample(verbs), buzz_terms[1]])
-    return phrase.title()
+def test_sample_multiple_words():
+    l = ('foo', 'bar', 'foobar')
+    words = generator.sample(l, 2)
+    assert len(words) == 2
+    assert words[0] in l
+    assert words[1] in l
+    assert words[0] is not words[1]
 
-if __name__ == "__main__":
-    print(generate_buzz())
-
-
+def test_generate_buzz_of_at_least_five_words():
+    phrase = generator.generate_buzz()
+    assert len(phrase.split()) >= 5
