@@ -25,11 +25,13 @@ jobs:
             python -m pytest -v
 
       - run:
+          context: AUTH
           name: Environment Variables
           command: |
             echo "$DOCKER_USER"
 
       - run:
+          context: AUTH
           name: Environment Variables 2
           command: |
             echo $DOCKER_USER
@@ -38,5 +40,9 @@ jobs:
           name: Environment Variables 3
           command: |
             echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+
+      - run:
+          name: Environment Variables 4
+          command: |
             docker build -t mariusz-cichy/cicd-buzz:$CIRCLE_BRANCH .
             docker mariusz-cichy/cicd-buzz:$CIRCLE_BRANCH
