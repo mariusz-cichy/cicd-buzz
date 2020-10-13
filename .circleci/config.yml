@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Environment Variables 3
           command: |
-            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+            docker login --username $DOCKER_USER --password $DOCKER_PASS
 
       - run:
           name: Environment Variables 4
