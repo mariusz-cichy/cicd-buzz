@@ -26,7 +26,7 @@ jobs:
       - run:
           when: on_success
           command: |
-            echo $DOCKER_USER
+            echo "$DOCKER_USER"
             echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
             docker build -t mariusz-cichy/cicd-buzz:$CIRCLE_BRANCH .
             docker mariusz-cichy/cicd-buzz:$CIRCLE_BRANCH
