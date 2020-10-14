@@ -22,7 +22,7 @@ jobs:
 
       # Step 2: create virtual env and install dependencies
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
@@ -35,12 +35,16 @@ jobs:
             python -m pytest -v
 
       - run:
-          name: Environment Variables 3
+          name: Build docker and push to Docker Hub
           command: |
             docker login --username $DOCKER_USER --password $DOCKER_PASS
-
-      - run:
-          name: Environment Variables 4
-          command: |
             docker build -t emcea/cicd-buzz:$CIRCLE_BRANCH .
             docker push emcea/cicd-buzz:$CIRCLE_BRANCH
+
+      - run:
+          name: Push to Heroku
+          command: |
+            wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+            heroku container:login
+            heroku container:push web --app $HEROKU_APP_NAME
+            heroku container:release web --app $HEROKU_APP_NAME
